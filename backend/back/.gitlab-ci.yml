@@ -1,0 +1,44 @@
+stages:
+  - build
+  - test
+  - checkstyle
+  - deploy
+
+build:
+  stage: build
+  image: maven:3.6.3-jdk-11
+  script:
+    - mvn clean package
+
+test:
+    stage: test
+    image: maven:3.6.3-jdk-11
+    script:
+    - echo "Test DEMO app"
+    - mvn test
+
+
+checkstyle:
+    stage: checkstyle
+    image: maven:3.6.3-jdk-11
+    script:
+    - echo "Checkstyle DEMO app"
+
+variables:
+    DB_IP: ec2-54-76-215-139.eu-west-1.compute.amazonaws.com
+    DB_PORT: 5432
+    DB_USER: wugjkqaveufnjs
+    DB_PASSWORD: c838e2e6bce1ebf090f1d1f1dfe2afe81565d4c56af61b85c5519989bf01138c
+    DB_DBNAME: dbj40djni7kqt0
+
+deploy:
+  stage: deploy
+  image: ruby:2.4
+  script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=dsbothioan --api-key=$HEROKU_API_KEY
+  only:
+    - production
+

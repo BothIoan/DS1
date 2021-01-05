@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="background-color: #092a3a;">
+
+<style>
+.column {
+  float: left;
+  width: 2%;
+}
+.column1{
+  float: left;
+  width: 75%;
+  height:40%;
+  color: #008b8b;
+}
+.column2{
+float: left;
+width: 25%;
+height: 40%;
+color: #008b8b;
+}
+.button{
+  background-color:#092a3a;
+  color: #008b8b
+}
+.container { border:2px solid #ccc; width:300px; height: 100px; overflow-y: scroll; 
+    color:#008b8b;
+    background-color: #053e47;
+    }
+</style>
+
+<h2 style="color: #008b8b;">Medications</h2>
+<div class = "column1">
+<button (click)="createMedication()" class="button btn-info">Add new medication</button>
+<table class="table table-striped" style = "background-color:#053e47;"> 
+        <thead>
+          <tr style = "color: #008b8b">
+          <th>Id</th>
+          <th>Name</th>
+          <th>Dosage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let medication of medications;">
+            <td>{{medication.idMedInfo}}</td>
+            <td>{{medication.name}}</td>
+            <td>{{medication.dosage}}</td>
+            <td>
+              <div class = "column" style="background-color:#008b8b;">
+                <button (click)="editMedication(medication)" class="button">Edit</button>
+                <button (click)="deleteMedication(medication.idMedication)" class="button">Remove</button>
+             </div>
+            </td>
+            
+          </tr>
+        </tbody>
+      </table>
+      <button (click)="navigateDoctorMain()" class="button">Return to main menu</button>
+      </div>
+      <div class = "column2">
+        <div *ngIf="visible; then thenBlock else elseBlock"></div>
+          <ng-template #thenBlock>
+            <div *ngIf = "action; then cr else ed"></div>
+          <ng-template #cr>
+            <label style="font-size: large;">Add new Medication</label>
+          </ng-template>
+          <ng-template #ed>
+            <label style="font-size: large;">Update entry</label>
+          </ng-template>
+            <form>
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" required [(ngModel)]="newMedication.name" name="name">
+              </div>
+              
+              <div class="form-group">
+                <label for="dosage">Dosage</label>
+                <input type="number" class="form-control" id="dosage" required [(ngModel)]="newMedication.dosage" name="dosage">
+              </div>
+
+              <div class="form-group container">
+                <label>Side effects</label>
+                <button (click)="createSideEffect()" class="button">+</button>
+                <input type="text" class="form-control" id="nameSE" required [(ngModel)]="newSideEffect.name" name="nameSE">
+                <table class="table table-striped" style = "background-color:#053e47;"> 
+                    <tbody>
+                        <tr *ngFor = "let sideEffect of allSideEffects">
+                            <td>{{sideEffect.name}}</td>
+                            <td>
+                                <div *ngIf = "checked(sideEffect); then bChecked else bNotChecked"></div>
+                                <ng-template #bChecked>
+                                 <input type="checkbox" class = "form-control" (change)="modifyCurrentSideEffects(sideEffect);" checked>
+                                </ng-template>
+                                <ng-template #bNotChecked>
+                                  <input type="checkbox" class = "form-control" (change)="modifyCurrentSideEffects(sideEffect);">
+                                </ng-template>
+                              </td>
+                              <td>
+                                <button (click)="deleteSideEffect(sideEffect.idSideEffect)" class="button">-</button>
+                              </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+              <button (click)="onSubmit()" class="button">Submit</button>
+              <button (click)="cancel()" class="button">Cancel</button>
+            </form>
+          </ng-template>
+          <ng-template #elseBlock>.  .  .</ng-template>
+      </div>
+</body>
+</html>

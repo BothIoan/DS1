@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<html style="margin: 0;">
+<head>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 10px;
+  height: 100%;
+  min-height: 900px; /*height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+  color: blue;
+}
+
+.border-right {
+    border-right: 40px solid #092a3a;
+}
+</style>
+</head>
+<body style="margin: 0;">
+
+<h2 style="color:aliceblue">DoctorMenu</h2>
+
+<div class="row">
+  <div class="column border-right" style="background-color:#008b8b;">
+    <h2 style ="color:aliceblue">Patients</h2>
+    <button (click)="navigatePatients()" class="btn btn-info" style="background-color: #092a3a ;color:aliceblue;">Manage patients</button>
+  </div>
+  <div class="column border-right" style="background-color:#053e47; color:aliceblue;">
+    <h2 style ="color:aliceblue">Medication</h2>
+    <button (click)="navigateMedication()" class="btn btn-info"style="background-color: #092a3a ;color:aliceblue;">Manage medication </button>
+  </div>
+  <div class="column" style="background-color:#008b8b;">
+  <h2 style ="color:aliceblue">Caregivers</h2>
+    <button (click)="navigateCaregivers()" class="btn btn-info"style="background-color: #092a3a ;color:aliceblue;">Manage caregivers </button>
+  </div>
+</div>
+<button (click)="navigateLogin()" class="button">Return to login</button>
+</body>
+</html>

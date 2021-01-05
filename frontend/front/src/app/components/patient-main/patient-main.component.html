@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="background-color: #092a3a;">
+
+<style>
+.column {
+  float: left;
+  width: 2%;
+}
+.column1{
+  float: left;
+  width: 75%;
+  height:40%;
+  color: #008b8b;
+}
+.column2{
+float: left;
+width: 25%;
+height: 40%;
+color: #008b8b;
+}
+.button{
+  background-color:#092a3a;
+  color: #008b8b
+}
+</style>
+
+<h2>Patients</h2>
+<div class = "column1">
+<table class="table table-striped" style = "background-color:#053e47;"> 
+        <thead>
+          <tr style = "color: #008b8b">
+          <th>Id</th>
+          <th>Name</th>
+          <th>Birthday</th>
+          <th>Gender</th>
+          <th>Address</th>
+          <th>MedicalRecord</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{patient.idPatient}}</td>
+            <td>{{patient.name}}</td>
+            <td>{{patient.date}}</td>
+            <td>{{patient.gender}}</td>
+            <td>{{patient.address}}</td>
+            <td>{{patient.record}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <button (click)="navigateLogin()" class="button">Return to Login</button>
+      </div>
+      <div class = "column2">
+            <form>
+              <div class="form-group container">
+                <label style="color : aliceblue;">Medical record</label>
+                <table class="table table-striped" style = "background-color:#053e47;"> 
+                    <tbody>
+                        <tr *ngFor = "let medInfo of medInfos">
+                          <td>{{medInfo.medication.name}}</td>
+                          <td>{{medInfo.interval}}</td>
+                          <td>{{medInfo.period}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            </form>
+      </div>
+</body>
+</html>

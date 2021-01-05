@@ -1,0 +1,32 @@
+stages:
+  - build
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+    
+variables:
+  CI: ""
+
+build:
+  stage: build
+  image: node:12
+  script:
+    - npm install @angular/cli
+    - npm run build
+
+deploy:
+  stage: deploy
+  image: ruby:2.4
+  script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=dsbothioan2 --api-key=$HEROKU_API_KEY --skip_cleanup
+  environment:
+    name: staging
+    url: https://dsbothioan2.herokuapp.com/
+  only:
+    - production
+

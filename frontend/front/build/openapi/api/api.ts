@@ -1,0 +1,13 @@
+export * from './authController.service';
+import { AuthControllerService } from './authController.service';
+export * from './caregiverController.service';
+import { CaregiverControllerService } from './caregiverController.service';
+export * from './medInfoController.service';
+import { MedInfoControllerService } from './medInfoController.service';
+export * from './medicationController.service';
+import { MedicationControllerService } from './medicationController.service';
+export * from './patientController.service';
+import { PatientControllerService } from './patientController.service';
+export * from './sideEffectController.service';
+import { SideEffectControllerService } from './sideEffectController.service';
+export const APIS = [AuthControllerService, CaregiverControllerService, MedInfoControllerService, MedicationControllerService, PatientControllerService, SideEffectControllerService];

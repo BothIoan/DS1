@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="background-color: #092a3a;">
+
+<style>
+.column {
+  float: left;
+  width: 2%;
+}
+.column1{
+  float: left;
+  width: 75%;
+  height:40%;
+  color: #008b8b;
+}
+.column2{
+float: left;
+width: 25%;
+height: 40%;
+color: #008b8b;
+}
+.button{
+  background-color:#092a3a;
+  color: #008b8b
+}
+</style>
+
+<h2>Prescriptions</h2>
+<div class = "column1">
+<button (click)="createPrescription()" class="button btn-info">Add new medication to prescription</button>
+<table class="table table-striped" style = "background-color:#053e47;"> 
+        <thead>
+          <tr style = "color: #008b8b">
+          <th>Medication</th>
+          <th>Interval</th>
+          <th>Period</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let prescription of prescriptions;">
+            <td>{{prescription.medication.name}}</td>
+            <td>{{prescription.interval}}</td>
+            <td>{{prescription.period}}</td>
+            <td>
+              <div class = "column" style="background-color:#008b8b;">
+                <button (click)="deletePrescription(prescription.idMedInfo)" class="button">-</button>
+             </div>
+            </td>
+            
+          </tr>
+        </tbody>
+      </table>
+      <button (click)="navigateDoctorPatients()" class="button">Return to main menu</button>
+      </div>
+      <div class = "column2">
+        <div *ngIf="visible; then thenBlock else elseBlock"></div>
+          <ng-template #thenBlock>
+            <label style="font-size: large;">Add new medication to prescription</label>
+            <form>
+              <div class="form-group">
+                <label for="name">Interval</label>
+                <input type="text" class="form-control" id="name" required [(ngModel)]="newPrescription.interval" name="name">
+              </div>
+              
+              <div class="form-group">
+                <label for="name">Period</label>
+                <input type="text" class="form-control" id="period" required [(ngModel)]="newPrescription.period" name="period">
+              </div>
+             
+              <div class="form-group">
+                <label for="name">Medication</label>
+                <select name="medication" class="form-control" id="medication" required [(ngModel)]="medName">
+                  <option *ngFor="let medication of medicationList;">
+                    {{medication.name}}
+                  </option>
+                </select>
+              </div>
+              <button (click)="onSubmit()" class="button">Submit</button>
+              <button (click)="cancel()" class="button">Cancel</button>
+            </form>
+          </ng-template>
+          <ng-template #elseBlock>.  .  .</ng-template>
+      </div>
+</body>
+</html>

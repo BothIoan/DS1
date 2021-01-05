@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="background-color: #092a3a;">
+
+<style>
+.column {
+  float: left;
+  width: 2%;
+}
+.column1{
+  float: left;
+  width: 75%;
+  height:40%;
+  color: #008b8b;
+}
+.column2{
+float: left;
+width: 25%;
+height: 40%;
+color: #008b8b;
+}
+.button{
+  background-color:#092a3a;
+  color: #008b8b
+}
+</style>
+
+<h2>Patients</h2>
+<div class = "column1">
+<button (click)="createPatient()" class="button btn-info">Add new patient</button>
+<table class="table table-striped" style = "background-color:#053e47;"> 
+        <thead>
+          <tr style = "color: #008b8b">
+          <th>Id</th>
+          <th>Name</th>
+          <th>Birthday</th>
+          <th>Gender</th>
+          <th>Address</th>
+          <th>MedicalRecord</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let patient of patients;">
+            <td>{{patient.idPatient}}</td>
+            <td>{{patient.name}}</td>
+            <td>{{patient.date}}</td>
+            <td>{{patient.gender}}</td>
+            <td>{{patient.address}}</td>
+            <td>{{patient.record}}</td>
+            <td>
+              <div class = "column" style="background-color:#008b8b;">
+                <button (click)="editPatient(patient)" class="button">Edit</button>
+                <button (click)="deletePatient(patient.idPatient)" class="button">Remove</button>
+                <button (click)="prescribePatient(patient.idPatient)" class="button">Prescribe</button>
+             </div>
+            </td>
+            
+          </tr>
+        </tbody>
+      </table>
+      <button (click)="navigateDoctorMain()" class="button">Return to main menu</button>
+      </div>
+      <div class = "column2">
+        <div *ngIf="visible; then thenBlock else elseBlock"></div>
+          <ng-template #thenBlock>
+            <div *ngIf = "action; then cr else ed"></div>
+          <ng-template #cr>
+            <label style="font-size: large;">Add new Patient</label>
+          </ng-template>
+          <ng-template #ed>
+            <label style="font-size: large;">Update entry</label>
+          </ng-template>
+            <form (ngSubmit) = "onSubmit()">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" required [(ngModel)]="newPatient.name" name="name">
+              </div>
+              
+              <div class="form-group">
+                <label for="name">Birthday</label>
+                <input type="date" class="form-control" id="date" required [(ngModel)]="newPatient.date" name="date">
+              </div>
+             
+              <div class="form-group">
+                <label for="name">Gender</label>
+                <select name="gender" class="form-control" id="gender" required [(ngModel)]="newPatient.gender">
+                  <option *ngFor="let gender of genderList;">
+                    {{gender}}
+                  </option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="name">Address</label>
+                <input type="text" class="form-control" id="address" required [(ngModel)]="newPatient.address" name="address">
+              </div>
+
+              <div class="form-group">
+                <label for="name">MedicalRecord</label>
+                <input type="text" class="form-control" id="record" required [(ngModel)]="newPatient.record" name="record">
+              </div>
+
+              <div class="form-group">
+                <label for="name">Password</label>
+                <input type="text" class="form-control" id="password" required [(ngModel)]="newPatient.password" name="password">
+              </div>
+              <button type="submit" class="button">Submit</button>
+              <button (click)="cancel()" class="button">Cancel</button>
+            </form>
+          </ng-template>
+          <ng-template #elseBlock>.  .  .</ng-template>
+      </div>
+</body>
+</html>
